@@ -45,5 +45,5 @@ export default {
 </script>
 
 <template>
-  <div ref="el" clsss="h-200px w-200px bg-gray-300">hello</div>
+  <div ref="el" h-500px class="border-2 border-gray-300"></div>
 </template>

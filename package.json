@@ -20,6 +20,7 @@
     "typescript": "^5.2.2",
     "unocss": "^0.58.9",
     "vite": "^5.2.0",
+    "vite-plugin-inspect": "^0.8.4",
     "vitepress": "^1.2.3",
     "vue": "^3.4.29",
     "vue-tsc": "^2.0.6"
