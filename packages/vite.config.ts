@@ -1,18 +1,16 @@
 import UnoCSS from 'unocss/vite'
 import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
-import Inspect from 'vite-plugin-inspect'
-
-console.log('vite.config.ts loaded')
+// import Inspect from 'vite-plugin-inspect'
 
 export default defineConfig({
   plugins: [
     UnoCSS(),
-    Inspect(),
+    // Inspect(),
   ],
   resolve: {
     alias: {
-      '@threejs': resolve(__dirname, '../'),
+      '@': resolve(__dirname, '../packages'),
     },
   },
 })

@@ -18,7 +18,8 @@ export default defineConfig({
       {
         text: 'part-01',
         items: [
-          { text: 'hello threejs', link: '/part-01/01-hello-threejs/README' },
+          { text: 'Hello Threejs', link: '/part-01/01-hello-threejs/README' },
+          { text: 'spotlight and shadow', link: '/part-01/02-light/README' },
         ],
       },
     ],

@@ -93,7 +93,7 @@ After completing the above steps, we have only created a simple cube. Next, we n
 
 ### OrbitControls
 
-OrbitControls is a built-in three.js class that allows you to control the camera using the mouse or touch screen.
+OrbitControls is a built-in three.js class that allows you to `control the camera` using the mouse or touch screen. 
 
 ```typescript
  // 4.1 Orbit controls（轨道控制器）可以使得相机围绕目标进行轨道运动。
