@@ -117,3 +117,15 @@ To add animation effects, we can use the requestAnimationFrame API. This method 
   }
   animate();
 ```
+
+## AxesHelper
+
+AxesHelper is a built-in three.js class that can be used to visualize the axes of a coordinate system.
+
+```typescript
+  const axesHelper = new Three.AxesHelper(5); // 5 is the length of the axes
+  scene.add(axesHelper);
+```
+
+x: red, y: green, z: blue
+x: vertical, y: horizontal, z: depth (vertical to screen)
