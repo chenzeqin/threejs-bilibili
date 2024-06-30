@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useContainer } from '../../hooks/useContainer';
 
 let scene: THREE.Scene,
@@ -60,14 +60,13 @@ function init() {
   orbitControls.update();
 }
 
+let animateId: number;
 // 渲染
 function render() {
   // 下一个空闲时间片执行
-  requestAnimationFrame(render);
-
-  // console.info('render')
+  animateId = requestAnimationFrame(render);
   renderer.render(scene, camera);
-  // cube.rotation.y += 0.01;
+  cube.rotation.y += 0.01;
 
   // required if controls.enableDamping or controls.autoRotate are set to true
   orbitControls.update();
@@ -76,6 +75,15 @@ function render() {
 onMounted(() => {
   init();
   render();
+});
+
+onUnmounted(() => {
+  // 清除动画循环
+  cancelAnimationFrame(animateId);
+  // 销毁渲染器
+  renderer.dispose();
+  // 销毁控制器
+  orbitControls.dispose();
 });
 </script>
 
