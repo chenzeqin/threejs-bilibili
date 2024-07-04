@@ -4,15 +4,21 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 import { onMounted, onUnmounted } from 'vue';
 import { useContainer } from '../../hooks/useContainer';
+import { useResizeObserver } from '@vueuse/core';
 
 let scene: THREE.Scene,
   cube: THREE.Mesh,
-  camera: THREE.Camera,
+  camera: THREE.PerspectiveCamera,
   renderer: THREE.WebGLRenderer,
   axesHelper: THREE.AxesHelper,
   orbitControls: OrbitControls;
 
 const { el, width, height } = useContainer();
+useResizeObserver(el, () => {
+  renderer.setSize(width.value, height.value);
+  camera.aspect = width.value / height.value;
+  camera.updateProjectionMatrix();
+});
 
 function init() {
   /* step1: 创建场景 scene */

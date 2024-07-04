@@ -1,7 +1,7 @@
 /* 创建一个有影子的物体 */
 <script lang="ts" setup>
 import * as THREE from 'three';
-import { h, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import { useContainer } from '../../hooks/useContainer';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -93,6 +93,7 @@ function initControls() {
   orbitControls.update();
   orbitControls.addEventListener('change', render);
 }
+
 let animateId: number;
 // 渲染
 function render() {
@@ -104,7 +105,7 @@ function render() {
   // cube.rotation.y += 0.01;
 
   // required if controls.enableDamping or controls.autoRotate are set to true
-  // orbitControls.update();
+  orbitControls.update();
 }
 
 onMounted(() => {
