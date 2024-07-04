@@ -10,7 +10,21 @@ this sample shows how to use spotlight and shadow in three.js
 
 <Light></Light>
 
+::: tip Summary
+
+- `MeshPhongMaterial` or `MeshStandardMaterial` instead of `MeshBasicMaterial` to support light and reflection.
+- `SpotLight` to create a spotlight.
+- `castShadow` to enable shadow for the object.
+- `receiveShadow` to enable receiving shadow for the object.
+- `shadowMap.enabled` to enable shadows.
+
+:::
+
 ## create Mesh
+
+::: warning
+ using `MeshPhongMaterial` or `MeshStandardMaterial` instead of `MeshBasicMaterial` to support light and reflection.
+:::
 
 ```typescript
 /* 创建物体 */

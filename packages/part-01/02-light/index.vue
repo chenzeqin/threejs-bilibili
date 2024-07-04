@@ -91,7 +91,7 @@ function initControls() {
   orbitControls = new OrbitControls(camera, renderer.domElement);
   //controls.update() must be called after any manual changes to the camera's transform
   orbitControls.update();
-  orbitControls.addEventListener('change', render);
+  // orbitControls.addEventListener('change', render);
 }
 
 let animateId: number;
