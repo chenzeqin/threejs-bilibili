@@ -20,7 +20,7 @@ export default defineConfig({
         items: [
           { text: 'Hello Threejs', link: '/part-01/01-hello-threejs/README' },
           { text: 'spotlight and shadow', link: '/part-01/02-light/README' },
-          { text: 'gui helper', link: '/part-01/03-gui-helper/README' },
+          { text: 'GUI and helper', link: '/part-01/03-GUI-and-helper/README' },
         ],
       },
     ],

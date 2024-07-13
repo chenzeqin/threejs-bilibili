@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { onMounted, onUnmounted } from 'vue';
 import { useContainer } from '../../hooks/useContainer';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GUI } from 'dat.gui';
 
 let scene: THREE.Scene,
   spotLight: THREE.SpotLight,
@@ -12,7 +13,9 @@ let scene: THREE.Scene,
   camera: THREE.Camera,
   renderer: THREE.WebGLRenderer,
   axesHelper: THREE.AxesHelper,
-  orbitControls: OrbitControls;
+  orbitControls: OrbitControls,
+  spotLightHelper: THREE.SpotLightHelper,
+  gui: GUI;
 
 const { el, width, height } = useContainer();
 
@@ -86,6 +89,48 @@ function initHelpers() {
   scene.add(axesHelper);
 }
 
+function initSpotLightHelper() {
+  spotLightHelper = new THREE.SpotLightHelper(spotLight);
+  scene.add(spotLightHelper);
+}
+
+function buildGui() {
+  gui = new GUI();
+  const spotLightFolder = gui.addFolder('SpotLight');
+  spotLightFolder.addColor(spotLight, 'color').onChange(function (val) {
+    spotLight.color = val;
+    // console.warn(typeof spotLight.color.set);
+    // console.log(spotLight.color, val); // an Object like {r,g,b}
+    render();
+  });
+  spotLightFolder.add(spotLight, 'angle', 0, Math.PI).onChange((angle) => {
+    spotLight.angle = angle;
+    spotLightHelper.update();
+    render();
+  });
+  spotLightFolder.add(spotLight, 'penumbra', 0, 1).onChange((penumbra) => {
+    spotLight.penumbra = penumbra;
+    spotLightHelper.update();
+    render();
+  });
+  spotLightFolder.open();
+
+  const cameraFolder = gui.addFolder('Camera');
+  cameraFolder
+    .add(camera.position, 'y', 10, 1000)
+    .step(1)
+    .onChange((y) => {
+      camera.position.y = y;
+      spotLightHelper.update();
+      render();
+    });
+
+  // update container style
+  el.value!.appendChild(gui.domElement.parentElement!);
+  gui.domElement.parentElement!.style.position = 'absolute';
+  gui.domElement.parentElement!.style.zIndex = '1000';
+}
+
 function initControls() {
   // 视角移动控制
   orbitControls = new OrbitControls(camera, renderer.domElement);
@@ -117,6 +162,8 @@ onMounted(() => {
   initMeshes();
   initShadows();
   initHelpers();
+  initSpotLightHelper();
+  buildGui();
   initControls();
   render();
 });
@@ -130,6 +177,7 @@ onUnmounted(() => {
   spotLight.dispose();
   axesHelper.dispose();
   renderer.domElement.remove();
+  gui.destroy();
 });
 </script>
 
@@ -143,6 +191,7 @@ export default {
   <div
     ref="el"
     h-500px
+    position-relative
     class="border-2 border-gray-300"
   ></div>
 </template>
