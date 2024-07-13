@@ -14,7 +14,7 @@ let scene: THREE.Scene,
   orbitControls: OrbitControls;
 
 const { el, width, height } = useContainer();
-useResizeObserver(el, () => {
+const { stop } = useResizeObserver(el, () => {
   renderer.setSize(width.value, height.value);
   camera.aspect = width.value / height.value;
   camera.updateProjectionMatrix();
@@ -90,6 +90,7 @@ onUnmounted(() => {
   renderer.dispose();
   // 销毁控制器
   orbitControls.dispose();
+  stop();
 });
 </script>
 
