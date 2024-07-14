@@ -22,6 +22,7 @@ export default defineConfig({
           { text: 'spotlight and shadow', link: '/part-01/02-light/README' },
           { text: 'GUI and helper', link: '/part-01/03-GUI-and-helper/README' },
           { text: 'InstancedMesh and Raycaster', link: '/part-01/04-raycast/README' },
+          { text: 'Physics', link: '/part-01/05-physics/README' },
         ],
       },
     ],

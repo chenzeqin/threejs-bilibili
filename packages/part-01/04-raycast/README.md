@@ -78,17 +78,17 @@ function render() {
   raycaster.setFromCamera(mouse, camera);
 
   const intersections = raycaster.intersectObject(meshes);
- if (intersections.length) {
-    // 拿出第一个, 修改颜色
-    const instanceId = intersections[0].instanceId;
-     // 获取颜色, 用来判断是否是默认颜色
-    meshes.getColorAt(instanceId!, color);
-    // 当前颜色是默认颜色才修改颜色，防止重复修改，效果出现闪烁
-    if (color.equals(defaultColor)) {
-      meshes.setColorAt(instanceId!, color.setHex(Math.random() * 0xffffff));
-      meshes.instanceColor!.needsUpdate = true;
+  if (intersections.length) {
+      // 拿出第一个, 修改颜色
+      const instanceId = intersections[0].instanceId;
+      // 获取颜色, 用来判断是否是默认颜色
+      meshes.getColorAt(instanceId!, color);
+      // 当前颜色是默认颜色才修改颜色，防止重复修改，效果出现闪烁
+      if (color.equals(defaultColor)) {
+        meshes.setColorAt(instanceId!, color.setHex(Math.random() * 0xffffff));
+        meshes.instanceColor!.needsUpdate = true;
+      }
     }
-  }
 }
 
 ```
