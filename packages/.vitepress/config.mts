@@ -21,6 +21,7 @@ export default defineConfig({
           { text: 'Hello Threejs', link: '/part-01/01-hello-threejs/README' },
           { text: 'spotlight and shadow', link: '/part-01/02-light/README' },
           { text: 'GUI and helper', link: '/part-01/03-GUI-and-helper/README' },
+          { text: 'raycast', link: '/part-01/04-raycast/README' },
         ],
       },
     ],
