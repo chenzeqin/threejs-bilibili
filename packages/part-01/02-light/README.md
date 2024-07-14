@@ -77,3 +77,7 @@ function initShadows() {
   renderer.shadowMap.enabled = true; // 开启阴影
 }
 ```
+
+::: tip useful links
+<https://sbcode.net/threejs/lights/>
+:::
