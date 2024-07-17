@@ -78,6 +78,9 @@ function initMeshes() {
     }
   }
 
+  // 优化性能（效果肉眼看不出）
+  meshes.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  
   scene.add(meshes);
 }
 
