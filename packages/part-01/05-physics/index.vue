@@ -31,6 +31,8 @@ function initCamera() {
 
 function initRenderer() {
   renderer = new THREE.WebGLRenderer();
+  renderer.setPixelRatio(window.devicePixelRatio); // 高清屏
+  renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.setSize(width.value, height.value); // canvas 宽高
   el.value!.appendChild(renderer.domElement); // canvas
 }
