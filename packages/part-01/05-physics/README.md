@@ -57,3 +57,40 @@ directionalLight.castShadow = true;
 ```
 
 ## enanble physics
+
+```ts
+// 新版已经移除 oimoPhysics
+// import { RapierPhysics } from 'three/examples/jsm/physics/RapierPhysics.js';
+import { OimoPhysics as RapierPhysics } from 'three/examples/jsm/physics/OimoPhysics.js';
+// 添加物理属性
+async function enabledPhysics() {
+  physics = await RapierPhysics();
+  physics.addMesh(floor);
+  physics.addMesh(balls, 1);
+  physics.addMesh(boxes, 1);
+}
+```
+
+## update position
+
+```ts
+var position: THREE.Vector3 = new THREE.Vector3();
+// 渲染
+function render() {
+  // ...
+
+  // 重新设置位置
+  const index = Math.floor(Math.random() * boxes.count);
+  position.set(0, Math.random() * 2, 0); // random position
+  physics.setMeshPosition(boxes, position, index);
+
+  const index2 = Math.floor(Math.random() * boxes.count);
+  position.set(0, Math.random() * 2, 0); // random position
+  physics.setMeshPosition(balls, position, index2);
+}
+
+```
+
+::: tip usefull links
+<https://sbcode.net/threejs/physics-rapier/>
+:::
