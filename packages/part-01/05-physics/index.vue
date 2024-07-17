@@ -19,6 +19,7 @@ const { el, width, height } = useContainer();
 /* 基本套路： 创建4要素 */
 function initScene() {
   scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xdddddd);
 }
 
 function initCamera() {
@@ -49,18 +50,18 @@ function initHelper() {
 let directionalLight: THREE.DirectionalLight;
 function initLight() {
   // HemisphereLight提供了更加自然和真实的光照效果，特别是在模拟户外光照时。
-  const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x404040);
-  hemisphereLight.intensity = 0.5; // 强度
-  hemisphereLight.position.set(0, 10, 0);
-  scene.add(hemisphereLight);
+  // const hemisphereLight = new THREE.HemisphereLight(0xdddddd, 0x404040);
+  // hemisphereLight.intensity = 0.5; // 强度
+  // hemisphereLight.position.set(0, 10, 0);
+  // scene.add(hemisphereLight);
 
   // AmbientLight则用于为场景提供一个基础的光照层，它不会产生明显的高光或者阴影，只是让场景中的暗部不那么黑暗。
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+  const ambientLight = new THREE.AmbientLight(0xdddddd, 0.5);
   scene.add(ambientLight);
 
   // 可以忽略光源距离, 类似太阳光
   directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
-  directionalLight.position.set(0, 3, 0);
+  directionalLight.position.set(3, 3, 3);
   scene.add(directionalLight);
 
   // 如果模拟路灯, 使用spotlight
@@ -107,7 +108,7 @@ function initMeshes() {
   // 添加地板
   floor = new THREE.Mesh(
     new THREE.BoxGeometry(10, 0.4, 10),
-    new THREE.MeshPhongMaterial({ color: 0xffffff })
+    new THREE.ShadowMaterial({ color: 0x333333 }) // 专门用于接受影子的材料, 颜色可以随意
   );
 
   floor.position.set(0, -1, 0);
@@ -125,6 +126,7 @@ function enabledShadow() {
 // 添加物理属性
 async function enabledPhysics() {
   physics = await RapierPhysics();
+  // 添加物理对象
   physics.addMesh(floor);
   physics.addMesh(balls, 1);
   physics.addMesh(boxes, 1);
@@ -155,7 +157,7 @@ onMounted(async () => {
   initCamera();
   initRenderer();
   initControls();
-  initHelper();
+  // initHelper();
   initLight();
   initMeshes();
   enabledShadow();
