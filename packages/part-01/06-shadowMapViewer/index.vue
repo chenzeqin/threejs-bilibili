@@ -59,10 +59,12 @@ function initLight() {
   directionalLight.position.set(0, 10, 0);
   directionalLight.shadow.camera.zoom = 2;
   directionalLight.castShadow = true;
-  directionalLight.shadow.mapSize.width = 1024;
-  directionalLight.shadow.mapSize.height = 1024;
   directionalLight.shadow.camera.near = 1;
   directionalLight.shadow.camera.far = 12;
+  directionalLight.shadow.camera.left = -10;
+  directionalLight.shadow.camera.right = 10;
+  directionalLight.shadow.camera.top = 10;  
+  directionalLight.shadow.camera.bottom = -10;
   scene.add(directionalLight);
 
   // spotLight
