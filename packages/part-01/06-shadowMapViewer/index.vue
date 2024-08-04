@@ -95,8 +95,8 @@ function initLight() {
 let torusKnot: THREE.Mesh;
 let box: THREE.Mesh;
 function initMeshes() {
-  // 创建环形节
-  const geometry = new THREE.TorusKnotGeometry(25, 8, 90, 50);
+  // 创建环形结
+  const geometry = new THREE.TorusKnotGeometry(25, 8, 90, 50); // 大小， 半径 顶点数， 顶点间距
   torusKnot = new THREE.Mesh(
     geometry,
     new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 150, specular: 0xffffff })
