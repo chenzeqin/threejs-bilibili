@@ -40,8 +40,6 @@ function initControls() {
   // orbitControls.addEventListener('change', render);
 }
 
-
-
 let directionalLight: THREE.DirectionalLight;
 let spotLight: THREE.SpotLight;
 function initLight() {
@@ -57,21 +55,27 @@ function initLight() {
 
   // 可以忽略光源距离, 类似太阳光
   directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+  directionalLight.name = 'directionalLight';
   directionalLight.position.set(0, 10, 0);
   directionalLight.shadow.camera.zoom = 2;
   directionalLight.castShadow = true;
-  // scene.add(directionalLight);
+  directionalLight.shadow.mapSize.width = 1024;
+  directionalLight.shadow.mapSize.height = 1024;
+  directionalLight.shadow.camera.near = 1;
+  directionalLight.shadow.camera.far = 12;
+  scene.add(directionalLight);
 
   // spotLight
   spotLight = new THREE.SpotLight(0xffffff);
+  spotLight.name = 'spotLight';
   spotLight.position.set(10, 10, 5); // 位置
   spotLight.angle = Math.PI / 6; // 光照角度
   spotLight.penumbra = 0.2; // 过渡效果
   spotLight.castShadow = true;
-  // spotLight.shadow.mapSize.width = 1024;
-  // spotLight.shadow.mapSize.height = 1024;
-  // spotLight.shadow.camera.near = 50;
-  // spotLight.shadow.camera.far = 400;
+  spotLight.shadow.mapSize.width = 1024;
+  spotLight.shadow.mapSize.height = 1024;
+  spotLight.shadow.camera.near = 8;
+  spotLight.shadow.camera.far = 20;
   scene.add(spotLight);
 }
 
@@ -103,7 +107,11 @@ function initMeshes() {
 
   // floor
   const floorGeometry = new THREE.PlaneGeometry(20, 20);
-  const floorMaterial = new THREE.MeshPhongMaterial({ opacity: 0.2, color: 0xcccccc, specular: 0xa0a0a0 });
+  const floorMaterial = new THREE.MeshPhongMaterial({
+    opacity: 0.2,
+    color: 0xcccccc,
+    specular: 0xa0a0a0,
+  });
   const floor = new THREE.Mesh(floorGeometry, floorMaterial);
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
@@ -123,6 +131,9 @@ function render() {
 function initHelper() {
   axesHelper = new THREE.AxesHelper(1); // 坐标轴
   scene.add(axesHelper);
+
+  scene.add(new THREE.CameraHelper(spotLight.shadow.camera));
+  scene.add(new THREE.CameraHelper(directionalLight.shadow.camera));
 }
 
 onMounted(async () => {
