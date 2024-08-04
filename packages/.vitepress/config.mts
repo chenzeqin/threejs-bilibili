@@ -4,6 +4,12 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: 'threejs-bilibili',
   description: 'threejs-bilibili',
+  // 其他配置...
+  head: [
+    ['link', { rel: 'icon', href: '/favicon_white.ico', media: '(prefers-color-scheme: dark)' }],
+    ['link', { rel: 'icon', href: '/favicon.ico', media: '(prefers-color-scheme: light)' }],
+  ],
+
   themeConfig: {
     outline: {
       level: [2, 3],
