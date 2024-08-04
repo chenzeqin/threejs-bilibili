@@ -42,10 +42,10 @@ function resizeShadowMapViewer() {
   spotLightShadowMapViewer.position.y = 10;
   spotLightShadowMapViewer.size.width = size;
   spotLightShadowMapViewer.size.height = size;
-  spotLightShadowMapViewer.update();
+  spotLightShadowMapViewer.update(); // 直接赋值需要调用update
 
   dirLightShadowMapViewer.position.set(20 + size, 10);
-  dirLightShadowMapViewer.size.set(size, size);
+  dirLightShadowMapViewer.size.set(size, size); // 不需要调用update
 
   spotLightShadowMapViewer.updateForWindowResize();
   dirLightShadowMapViewer.updateForWindowResize();
