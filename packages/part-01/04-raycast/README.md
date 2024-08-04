@@ -16,7 +16,7 @@ create `10 * 10 * 10` IcosahedronGeometry
 ```ts
 let amount = 10;
 let count = Math.pow(amount, 3); // 10*10*10个小球
-let meshes: THREE.InstancedMesh;
+let meshes: THREE.InstancedMesh; // 实例化的小球组
 const defaultColor = new THREE.Color().setHex(0xffffff);
 function initMeshes() {
   const geometry = new THREE.IcosahedronGeometry(0.5, 1); // 正20面体
