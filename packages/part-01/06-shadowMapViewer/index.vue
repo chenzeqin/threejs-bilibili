@@ -2,7 +2,7 @@
 import { useContainer } from '@/hooks/useContainer';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { h, onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 
 let scene: THREE.Scene;
 let camera: THREE.PerspectiveCamera;
@@ -63,7 +63,7 @@ function initLight() {
   directionalLight.shadow.camera.far = 12;
   directionalLight.shadow.camera.left = -10;
   directionalLight.shadow.camera.right = 10;
-  directionalLight.shadow.camera.top = 10;  
+  directionalLight.shadow.camera.top = 10;
   directionalLight.shadow.camera.bottom = -10;
   scene.add(directionalLight);
 
@@ -81,10 +81,12 @@ function initLight() {
   scene.add(spotLight);
 }
 
+let torusKnot: THREE.Mesh;
+let box: THREE.Mesh;
 function initMeshes() {
   // 创建环形节
   const geometry = new THREE.TorusKnotGeometry(25, 8, 90, 50);
-  const torusKnot = new THREE.Mesh(
+  torusKnot = new THREE.Mesh(
     geometry,
     new THREE.MeshPhongMaterial({ color: 0xff0000, shininess: 150, specular: 0xffffff })
   );
@@ -97,7 +99,7 @@ function initMeshes() {
 
   // box
   const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-  const box = new THREE.Mesh(
+  box = new THREE.Mesh(
     boxGeometry,
     new THREE.MeshPhongMaterial({ color: 0x00ff00, shininess: 150, specular: 0xffffff })
   );
@@ -120,22 +122,31 @@ function initMeshes() {
   scene.add(floor);
 }
 
-let animateId: number;
-// 渲染
-function render() {
-  animateId = requestAnimationFrame(render);
-  renderer.render(scene, camera);
-
-  // required if controls.enableDamping or controls.autoRotate are set to true
-  orbitControls.update();
-}
-
 function initHelper() {
   axesHelper = new THREE.AxesHelper(1); // 坐标轴
   scene.add(axesHelper);
 
   scene.add(new THREE.CameraHelper(spotLight.shadow.camera));
   scene.add(new THREE.CameraHelper(directionalLight.shadow.camera));
+}
+
+let animateId: number;
+const clock = new THREE.Clock();
+// 渲染
+function render() {
+  animateId = requestAnimationFrame(render);
+  renderer.render(scene, camera);
+
+  const delta = clock.getDelta();
+  // 转动起来
+  torusKnot.rotation.y += 1 * delta;
+  torusKnot.rotation.x += 1 * delta;
+
+  box.rotateX(1 * delta);
+  box.rotateY(1 * delta);
+
+  // required if controls.enableDamping or controls.autoRotate are set to true
+  orbitControls.update();
 }
 
 onMounted(async () => {
