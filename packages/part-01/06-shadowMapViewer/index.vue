@@ -2,7 +2,9 @@
 import { useContainer } from '@/hooks/useContainer';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { ShadowMapViewer } from 'three/examples/jsm/utils/ShadowMapViewer.js';
 import { onMounted, onUnmounted } from 'vue';
+import { useResizeObserver } from '@vueuse/core';
 
 let scene: THREE.Scene;
 let camera: THREE.PerspectiveCamera;
@@ -11,6 +13,15 @@ let orbitControls: OrbitControls;
 let axesHelper: THREE.AxesHelper;
 
 const { el, width, height } = useContainer();
+
+const { stop } = useResizeObserver(el, () => {
+  renderer.setSize(width.value, height.value);
+  camera.aspect = width.value / height.value;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(width.value, height.value);
+  resizeShadowMapViewer();
+});
 
 /* 基本套路： 创建4要素 */
 function initScene() {
@@ -130,6 +141,29 @@ function initHelper() {
   scene.add(new THREE.CameraHelper(directionalLight.shadow.camera));
 }
 
+let spotLightShadowMapViewer: ShadowMapViewer;
+let dirLightShadowMapViewer: ShadowMapViewer;
+function initShadowMapViewer() {
+  spotLightShadowMapViewer = new ShadowMapViewer(spotLight);
+  dirLightShadowMapViewer = new ShadowMapViewer(directionalLight);
+  resizeShadowMapViewer();
+}
+
+function resizeShadowMapViewer() {
+  const size = width.value * 0.2;
+  spotLightShadowMapViewer.position.x = 10;
+  spotLightShadowMapViewer.position.y = 10;
+  spotLightShadowMapViewer.size.width = size;
+  spotLightShadowMapViewer.size.height = size;
+  spotLightShadowMapViewer.update();
+
+  dirLightShadowMapViewer.position.set(20 + size, 10);
+  dirLightShadowMapViewer.size.set(size, size);
+
+  spotLightShadowMapViewer.updateForWindowResize();
+  dirLightShadowMapViewer.updateForWindowResize();
+}
+
 let animateId: number;
 const clock = new THREE.Clock();
 // 渲染
@@ -147,6 +181,9 @@ function render() {
 
   // required if controls.enableDamping or controls.autoRotate are set to true
   orbitControls.update();
+
+  spotLightShadowMapViewer.render(renderer);
+  dirLightShadowMapViewer.render(renderer);
 }
 
 onMounted(async () => {
@@ -157,6 +194,7 @@ onMounted(async () => {
   initLight();
   initMeshes();
   initHelper();
+  initShadowMapViewer();
   render();
 });
 
@@ -165,6 +203,8 @@ onUnmounted(() => {
   renderer.dispose();
   orbitControls.dispose();
   renderer.domElement.remove();
+
+  stop();
 });
 </script>
 
