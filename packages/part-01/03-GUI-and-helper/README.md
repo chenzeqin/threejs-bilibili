@@ -13,7 +13,7 @@ this sample shows how to use gui-helper in three.js
  copy previous chapter code
 :::
 
-## spotlightHelper
+## SpotlightHelper
 
 ```ts
 function initSpotLightHelper() {
