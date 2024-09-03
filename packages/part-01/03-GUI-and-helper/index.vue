@@ -95,40 +95,42 @@ function initSpotLightHelper() {
 }
 
 function buildGui() {
-  gui = new GUI();
-  const spotLightFolder = gui.addFolder('SpotLight');
-  spotLightFolder.addColor(spotLight, 'color').onChange(function (val) {
-    spotLight.color = val;
-    // console.warn(typeof spotLight.color.set);
-    // console.log(spotLight.color, val); // an Object like {r,g,b}
-    render();
-  });
-  spotLightFolder.add(spotLight, 'angle', 0, Math.PI).onChange((angle) => {
-    spotLight.angle = angle;
-    spotLightHelper.update();
-    render();
-  });
-  spotLightFolder.add(spotLight, 'penumbra', 0, 1).onChange((penumbra) => {
-    spotLight.penumbra = penumbra;
-    spotLightHelper.update();
-    render();
-  });
-  spotLightFolder.open();
-
-  const cameraFolder = gui.addFolder('Camera');
-  cameraFolder
-    .add(camera.position, 'y', 10, 1000)
-    .step(1)
-    .onChange((y) => {
-      camera.position.y = y;
+  import('dat.gui').then(({ GUI }) => {
+    gui = new GUI() as  unknown as GUI;
+    const spotLightFolder = gui.addFolder('SpotLight');
+    spotLightFolder.addColor(spotLight, 'color').onChange(function (val) {
+      spotLight.color = val;
+      // console.warn(typeof spotLight.color.set);
+      // console.log(spotLight.color, val); // an Object like {r,g,b}
+      render();
+    });
+    spotLightFolder.add(spotLight, 'angle', 0, Math.PI).onChange((angle) => {
+      spotLight.angle = angle;
       spotLightHelper.update();
       render();
     });
+    spotLightFolder.add(spotLight, 'penumbra', 0, 1).onChange((penumbra) => {
+      spotLight.penumbra = penumbra;
+      spotLightHelper.update();
+      render();
+    });
+    spotLightFolder.open();
 
-  // update container style
-  el.value!.appendChild(gui.domElement.parentElement!);
-  gui.domElement.parentElement!.style.position = 'absolute';
-  gui.domElement.parentElement!.style.zIndex = '1000';
+    const cameraFolder = gui.addFolder('Camera');
+    cameraFolder
+      .add(camera.position, 'y', 10, 1000)
+      .step(1)
+      .onChange((y) => {
+        camera.position.y = y;
+        spotLightHelper.update();
+        render();
+      });
+
+    // update container style
+    el.value!.appendChild(gui.domElement.parentElement!);
+    gui.domElement.parentElement!.style.position = 'absolute';
+    gui.domElement.parentElement!.style.zIndex = '1000';
+  });
 }
 
 function initControls() {
