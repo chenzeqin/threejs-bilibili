@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/threejs-demo/',
   title: 'threejs-bilibili',
   description: 'threejs-bilibili',
   // 其他配置...
