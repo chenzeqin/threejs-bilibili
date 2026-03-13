@@ -9,7 +9,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "packages/*"
+        "docs/*"
       ]
     },
 
@@ -27,6 +27,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["packages/**/*.ts", "packages/**/*.tsx", "packages/**/*.vue"],
+  "include": ["docs/**/*.ts", "docs/**/*.tsx", "docs/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

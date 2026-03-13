@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 import * as THREE from 'three';
 import { onMounted, onUnmounted } from 'vue';
-import { useContainer } from '../../hooks/useContainer';
+import { useContainer } from '@/shared/hooks/useContainer';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GUI } from 'dat.gui';
 

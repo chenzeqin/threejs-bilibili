@@ -2,9 +2,9 @@ import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/threejs-demo/',
-  title: 'threejs-bilibili',
-  description: 'threejs-bilibili',
+  base: '/threejs-tutorial/',
+  title: 'threejs-tutorial',
+  description: 'a tutorial for three.js',
   // 其他配置...
   head: [
     ['link', { rel: 'icon', href: '/favicon_white.ico', media: '(prefers-color-scheme: dark)' }],

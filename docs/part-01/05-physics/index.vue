@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useContainer } from '@/hooks/useContainer';
+import { useContainer } from '@/shared/hooks/useContainer';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { onMounted, onUnmounted } from 'vue';

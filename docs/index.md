@@ -8,7 +8,7 @@ hero:
   tagline: My great project tagline
   actions:
     - theme: brand
-      text: Let's get started
+      text: get start
       link: /part-01/01-hello-threejs/README
 
     - theme: alt
