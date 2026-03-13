@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  base: '/threejs-tutorial/',
+  base: '/threejs-bilibili/',
   title: 'threejs-tutorial',
   description: 'a tutorial for three.js',
   // 其他配置...
